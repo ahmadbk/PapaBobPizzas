@@ -1,0 +1,92 @@
+﻿@model PapaBobMegaChallengeMVC.Models.Order
+@{
+    ViewBag.Title = "Place Your Order:";
+}
+
+<h3><strong>@ViewBag.Title</strong></h3>
+
+@using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+    <!--
+        <div class="form-group">
+            @Html.LabelFor(p => p.size):
+            @Html.DropDownListFor(p => p.size,new SelectList(
+                        new List<Object>
+                        {
+                            new {text = "Small"},
+                            new {text = "Medium"},
+                            new {text = "Large"}
+                        },"text","text","Small"),
+                            new {@class = "form-control" })
+        </div>
+    -->
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.size)
+        @Html.EnumDropDownListFor(p => p.size, "Choose one...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.size, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.crust)
+        @Html.EnumDropDownListFor(p => p.crust, "Choose one...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.crust, "", new { @class = "text-danger" })
+        <br />
+    </div>
+
+    <div class="form-group">
+        <h5><strong>Toppings:<br /></strong></h5>
+
+        @Html.CheckBoxFor(p => p.green_peppers)
+        @Html.LabelFor(p => p.green_peppers)
+        <br />
+        @Html.CheckBoxFor(p => p.onions)
+        @Html.LabelFor(p => p.onions)
+        <br />
+        @Html.CheckBoxFor(p => p.pepperoni)
+        @Html.LabelFor(p => p.pepperoni)
+        <br />
+        @Html.CheckBoxFor(p => p.sausage)
+        @Html.LabelFor(p => p.sausage)
+    </div>
+
+    <div class="form-group">
+        <h3><strong>Deliver To:<br /></strong></h3>
+
+        @Html.LabelFor(p => p.Customer.name):<br />
+        @Html.TextBoxFor(p => p.Customer.name, new { @class = "form=control" })
+        <br />
+        @Html.LabelFor(p => p.Customer.address):<br />
+        @Html.TextAreaFor(p => p.Customer.address, 4, 30, new { @class = "form=control" })
+        <br />
+        @Html.LabelFor(p => p.Customer.zip_code):<br />
+        @Html.TextBoxFor(p => p.Customer.zip_code, new { @class = "form=control" })
+        @Html.ValidationMessageFor(p => p.Customer.zip_code, "", new { @class = "text-danger" })
+
+        <br />
+        @Html.LabelFor(p => p.Customer.phone_number):<br />
+        @Html.TextBoxFor(p => p.Customer.phone_number, new { @class = "form=control" })
+        <br />
+
+    </div>
+
+    <div class="form-group">
+        <h5><strong>Payment Type:<br /></strong></h5>
+
+        @Html.RadioButtonFor(p => p.payment_type, @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, new { id = @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, @checked = true, @GroupName = "MyGroup" })
+        <label for="@PapaBobMegaChallengeMVC.Models.PaymentType.Cash">@PapaBobMegaChallengeMVC.Models.PaymentType.Cash</label>
+        <br />
+        @Html.RadioButtonFor(p => p.payment_type, @PapaBobMegaChallengeMVC.Models.PaymentType.Credit, new { id = @PapaBobMegaChallengeMVC.Models.PaymentType.Credit, @checked = false, @GroupName = "MyGroup" })
+        <label for="@PapaBobMegaChallengeMVC.Models.PaymentType.Credit">@PapaBobMegaChallengeMVC.Models.PaymentType.Credit</label>
+        <br />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Place Order!" class="btn btn-default" />
+    </div>
+
+}

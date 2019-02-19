@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallengeMVC", "PapaBobMegaChallengeMVC\PapaBobMegaChallengeMVC.csproj", "{35E7F1C9-B258-47C1-9A00-8EAC25455926}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallenge.Presentation", "PapaBobMegaChallengeMVC\PapaBobMegaChallenge.Presentation.csproj", "{35E7F1C9-B258-47C1-9A00-8EAC25455926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallenge.Persistence", "PapaBobMegaChallenge.Persistence\PapaBobMegaChallenge.Persistence.csproj", "{FF951A23-D8CC-4A53-B576-396AEEFFD951}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallenge.Domain", "PapaBobMegaChallenge.Domain\PapaBobMegaChallenge.Domain.csproj", "{4DDFDC98-7428-45B9-B2EF-9A58EEA2C47F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallenge.DTO", "PapaBobMegaChallenge.DTO\PapaBobMegaChallenge.DTO.csproj", "{51A9FE33-1E91-424E-8ADD-E537B6981925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PapaBobMegaChallenge.Domain.Test", "PapaBobMegaChallenge.Domain.Test\PapaBobMegaChallenge.Domain.Test.csproj", "{5A2EBDCA-BD95-4957-B3C9-21D329503511}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{35E7F1C9-B258-47C1-9A00-8EAC25455926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35E7F1C9-B258-47C1-9A00-8EAC25455926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35E7F1C9-B258-47C1-9A00-8EAC25455926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF951A23-D8CC-4A53-B576-396AEEFFD951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF951A23-D8CC-4A53-B576-396AEEFFD951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF951A23-D8CC-4A53-B576-396AEEFFD951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF951A23-D8CC-4A53-B576-396AEEFFD951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DDFDC98-7428-45B9-B2EF-9A58EEA2C47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDFDC98-7428-45B9-B2EF-9A58EEA2C47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDFDC98-7428-45B9-B2EF-9A58EEA2C47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDFDC98-7428-45B9-B2EF-9A58EEA2C47F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A9FE33-1E91-424E-8ADD-E537B6981925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A9FE33-1E91-424E-8ADD-E537B6981925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A9FE33-1E91-424E-8ADD-E537B6981925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A9FE33-1E91-424E-8ADD-E537B6981925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2EBDCA-BD95-4957-B3C9-21D329503511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2EBDCA-BD95-4957-B3C9-21D329503511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2EBDCA-BD95-4957-B3C9-21D329503511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2EBDCA-BD95-4957-B3C9-21D329503511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
