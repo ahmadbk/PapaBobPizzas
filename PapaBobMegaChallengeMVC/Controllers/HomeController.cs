@@ -27,27 +27,34 @@ namespace PapaBobMegaChallengeMVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            OrderService orderService = new OrderService(new CustomerRepository(), new PizzaPriceTableRepository(), new OrderRepository());
-            double cost = orderService.CalculateAmountOwing(OrderMapper(model));
+            var orderService = new OrderService(new CustomerRepository(), new PizzaPriceTableRepository(), new OrderRepository());
+            var cost = orderService.CalculateAmountOwing(OrderMapper(model));
+            model.cost = decimal.Parse(cost.ToString());
+            orderService.AddOrder(OrderMapper(model));
             ViewBag.Cost = cost;
             return View();
         }
 
-        private OrderDto OrderMapper(Order order)
+        private static OrderDto OrderMapper(Order order)
         {
-            var orderDto = new OrderDto();
-            orderDto.green_peppers = order.green_peppers;
-            orderDto.sausage = order.sausage;
-            orderDto.onions = order.onions;
-            orderDto.pepperoni = order.pepperoni;
-            orderDto.size = (PapaBobMegaChallenge.DTO.Enums.Size)order.size;
-            orderDto.crust = (PapaBobMegaChallenge.DTO.Enums.Crust)order.crust;
-            orderDto.payment_type = (PapaBobMegaChallenge.DTO.Enums.PaymentType)order.payment_type;
-            orderDto.Customer = new CustomerDto();
-            orderDto.Customer.name = order.Customer.name;
-            orderDto.Customer.address = order.Customer.address;
-            orderDto.Customer.phone_number = order.Customer.phone_number;
-            orderDto.Customer.zip_code = order.Customer.zip_code;
+            var orderDto = new OrderDto
+            {
+                green_peppers = order.green_peppers,
+                sausage = order.sausage,
+                onions = order.onions,
+                pepperoni = order.pepperoni,
+                cost = order.cost,
+                size = (PapaBobMegaChallenge.DTO.Enums.Size)order.size,
+                crust = (PapaBobMegaChallenge.DTO.Enums.Crust)order.crust,
+                payment_type = (PapaBobMegaChallenge.DTO.Enums.PaymentType)order.payment_type,
+                Customer = new CustomerDto
+                {
+                    name = order.Customer.name,
+                    address = order.Customer.address,
+                    phone_number = order.Customer.phone_number,
+                    zip_code = order.Customer.zip_code
+                }
+            };
 
             return orderDto;
         }

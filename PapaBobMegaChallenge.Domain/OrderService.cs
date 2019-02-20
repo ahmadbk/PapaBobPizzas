@@ -58,13 +58,13 @@ namespace PapaBobMegaChallenge.Domain
             cost += current_order.pepperoni ? latestPricing.PepperoniCost : 0;
             cost += current_order.sausage ? latestPricing.SausageCost : 0;
 
-            return Double.Parse(cost.ToString());
+            return double.Parse(cost.ToString());
         }
 
-        //recieve order and customer object from presentation and pass onto persistence
-        public void AddOrder(DTO.OrderDto current_order, DTO.CustomerDto current_customer)
+        //receive order and customer object from presentation and pass onto persistence
+        public void AddOrder(DTO.OrderDto current_order)
         {
-            _orderRepository.AddOrder(current_order, current_customer);
+            _orderRepository.AddOrder(current_order, current_order.Customer);
         }
 
         public List<DTO.OrderDto> ObtainOrdersList()

@@ -77,7 +77,7 @@
     <div class="form-group">
         <h5><strong>Payment Type:<br /></strong></h5>
 
-        @Html.RadioButtonFor(p => p.payment_type, @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, new { id = @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, @checked = true, @GroupName = "MyGroup" })
+        @Html.RadioButtonFor(p => p.payment_type, @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, new { id = @PapaBobMegaChallengeMVC.Models.PaymentType.Cash, @checked = false, @GroupName = "MyGroup" })
         <label for="@PapaBobMegaChallengeMVC.Models.PaymentType.Cash">@PapaBobMegaChallengeMVC.Models.PaymentType.Cash</label>
         <br />
         @Html.RadioButtonFor(p => p.payment_type, @PapaBobMegaChallengeMVC.Models.PaymentType.Credit, new { id = @PapaBobMegaChallengeMVC.Models.PaymentType.Credit, @checked = false, @GroupName = "MyGroup" })
