@@ -1,0 +1,53 @@
+﻿@model List<PapaBobMegaChallengeMVC.Models.Order>
+@{
+    ViewBag.Title = "Order Management Page";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thread>
+        <tr>
+            <th scope="col">Size</th>
+            <th scope="col">Crust</th>
+            <th scope="col">Sausages</th>
+            <th scope="col">Pepperoni</th>
+            <th scope="col">Green Peppers</th>
+            <th scope="col">Onions</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Completed</th>
+        </tr>
+    </thread>
+    
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @Html.Encode(order.size)
+                </td>
+                <td>
+                    @Html.Encode(order.crust)
+                </td>
+                <td>
+                    @Html.CheckBox("a", order.sausage,new {@disabled=true})
+                </td>
+                <td>
+                    @Html.CheckBox("a", order.pepperoni, new { @disabled = true })
+                </td>
+                <td>
+                    @Html.CheckBox("a", order.green_peppers, new { @disabled = true })
+                </td>
+                <td>
+                    @Html.CheckBox("a", order.onions, new { @disabled = true })
+                </td>
+                <td>
+                    @Html.Encode(order.Customer.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Not Completed", "OrderCompleted", new {modelOrderId = order.order_id.ToString()})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

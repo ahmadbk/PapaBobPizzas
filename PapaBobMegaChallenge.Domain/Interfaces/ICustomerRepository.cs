@@ -9,5 +9,7 @@ namespace PapaBobMegaChallenge.Domain.Interfaces
     public interface ICustomerRepository
     {
         List<DTO.CustomerDto> GetCustomerList();
+        double CustomerBalanceOwing(string customerId);
+
     }
 }

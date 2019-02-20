@@ -23,6 +23,14 @@ namespace PapaBobMegaChallenge.Persistence.Repositories
             return dto_customers_list;
         }
 
+        public double CustomerBalanceOwing(string phoneNumber)
+        {
+            var db = new PapaBobEntities();
+            var dbCustomersList = db.Customers.ToList();
+            var customerInQuestion = dbCustomersList?.Find(p => p.phone_number == phoneNumber);
+            return customerInQuestion.amount_owing;
+        }
+
         public static void CustomerMapper(Persistence.Customer current_customer, out DTO.CustomerDto new_customer)
         {
             new_customer = new DTO.CustomerDto
@@ -65,6 +73,8 @@ namespace PapaBobMegaChallenge.Persistence.Repositories
             else
                 return false;
         }
+
+
 
     }
 }

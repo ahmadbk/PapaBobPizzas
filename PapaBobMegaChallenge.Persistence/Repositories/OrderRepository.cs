@@ -8,83 +8,83 @@ namespace PapaBobMegaChallenge.Persistence.Repositories
 {
     public class OrderRepository : Domain.Interfaces.IOrderRepository
     {
-        public void AddOrder(DTO.OrderDto current_order, DTO.CustomerDto current_customer)
+        public void AddOrder(DTO.OrderDto currentOrder, DTO.CustomerDto currentCustomer)
         {
             var db = new PapaBobEntities();
             var dbOrders = db.Orders;
             var dbCustomers = db.Customers;
 
-            var new_order = new Persistence.Order();
-            CreateNewOrder(current_order, out new_order);
+            var newOrder = new Persistence.Order();
+            CreateNewOrder(currentOrder, out newOrder);
 
             var dbCustomersList = db.Customers.ToList();
-            var check_if_customer_exits = CustomerRepository.CustomerExists(dbCustomersList, current_customer);
+            var check_if_customer_exits = CustomerRepository.CustomerExists(dbCustomersList, currentCustomer);
 
             if (!check_if_customer_exits)
             {
-                var new_customer = new Customer();
-                new_customer = CustomerRepository.CreateNewCustomer(current_customer);
-                new_order.customer_id = new_customer.customer_id;
-                var tempAmountOwing = current_order.payment_type != DTO.Enums.PaymentType.Cash ? current_order.cost : 0;
-                new_customer.amount_owing = double.Parse(tempAmountOwing.ToString());
-                new_order.Customer = new_customer;
-                dbCustomers.Add(new_customer);
+                var newCustomer = new Customer();
+                newCustomer = CustomerRepository.CreateNewCustomer(currentCustomer);
+                newOrder.customer_id = newCustomer.customer_id;
+                var tempAmountOwing = currentOrder.payment_type != DTO.Enums.PaymentType.Cash ? currentOrder.cost : 0;
+                newCustomer.amount_owing = double.Parse(tempAmountOwing.ToString());
+                newOrder.Customer = newCustomer;
+                dbCustomers.Add(newCustomer);
             }
             else
             {
-                var existing_customer = dbCustomersList?.Find(p => p.phone_number == current_customer.phone_number);
-                new_order.customer_id = existing_customer.customer_id;
-                var tempAmountOwing = current_order.payment_type != DTO.Enums.PaymentType.Cash ? current_order.cost : 0;
-                existing_customer.amount_owing += double.Parse(tempAmountOwing.ToString());
+                var existingCustomer = dbCustomersList?.Find(p => p.phone_number == currentCustomer.phone_number);
+                newOrder.customer_id = existingCustomer.customer_id;
+                var tempAmountOwing = currentOrder.payment_type != DTO.Enums.PaymentType.Cash ? currentOrder.cost : 0;
+                existingCustomer.amount_owing += double.Parse(tempAmountOwing.ToString());
             }
 
-            dbOrders.Add(new_order);
+            dbOrders.Add(newOrder);
             db.SaveChanges();
         }
 
-        private static void CreateNewOrder(DTO.OrderDto current_order, out Persistence.Order new_order)
+        private static void CreateNewOrder(DTO.OrderDto current_order, out Persistence.Order newOrder)
         {
-            new_order = new Persistence.Order();
-            OrderMapper(current_order, out new_order);
+            newOrder = new Persistence.Order();
+            OrderMapper(current_order, out newOrder);
             var order_id = Guid.NewGuid();
-            new_order.order_id = order_id;
+            newOrder.order_id = order_id;
         }
 
-        private static void OrderMapper(Persistence.Order current_order, out DTO.OrderDto new_order)
+        private static void OrderMapper(Persistence.Order currentOrder, out DTO.OrderDto newOrder)
         {
-            new_order = new DTO.OrderDto
+            newOrder = new DTO.OrderDto
             {
                 completed = false,
-                cost = current_order.cost,
-                size = (DTO.Enums.Size)current_order.size,
-                crust = (DTO.Enums.Crust)current_order.crust,
-                payment_type = (DTO.Enums.PaymentType)current_order.payment_type,
-                onions = current_order.onions,
-                green_peppers = current_order.green_peppers,
-                sausage = current_order.sausage,
-                pepperoni = current_order.pepperoni,
-                customer_id = current_order.customer_id,
-                order_id = current_order.order_id
+                cost = currentOrder.cost,
+                size = (DTO.Enums.Size)currentOrder.size,
+                crust = (DTO.Enums.Crust)currentOrder.crust,
+                payment_type = (DTO.Enums.PaymentType)currentOrder.payment_type,
+                onions = currentOrder.onions,
+                green_peppers = currentOrder.green_peppers,
+                sausage = currentOrder.sausage,
+                pepperoni = currentOrder.pepperoni,
+                customer_id = currentOrder.customer_id,
+                order_id = currentOrder.order_id
             };
 
-            DTO.CustomerDto customer = new DTO.CustomerDto();
-            CustomerRepository.CustomerMapper(current_order.Customer, out customer);
-            new_order.Customer = customer;
+            var customer = new DTO.CustomerDto();
+            CustomerRepository.CustomerMapper(currentOrder.Customer, out customer);
+            newOrder.Customer = customer;
         }
 
-        private static void OrderMapper(DTO.OrderDto current_order, out Persistence.Order new_order)
+        private static void OrderMapper(DTO.OrderDto currentOrder, out Persistence.Order newOrder)
         {
-            new_order = new Persistence.Order
+            newOrder = new Persistence.Order
             {
                 completed = false,
-                cost = current_order.cost,
-                crust = (Persistence.Crust)current_order.crust,
-                payment_type = (Persistence.PaymentType)current_order.payment_type,
-                size = (Persistence.Size)current_order.size,
-                onions = current_order.onions,
-                green_peppers = current_order.green_peppers,
-                sausage = current_order.sausage,
-                pepperoni = current_order.pepperoni
+                cost = currentOrder.cost,
+                crust = (Persistence.Crust)currentOrder.crust,
+                payment_type = (Persistence.PaymentType)currentOrder.payment_type,
+                size = (Persistence.Size)currentOrder.size,
+                onions = currentOrder.onions,
+                green_peppers = currentOrder.green_peppers,
+                sausage = currentOrder.sausage,
+                pepperoni = currentOrder.pepperoni
             };
         }
 
@@ -98,19 +98,19 @@ namespace PapaBobMegaChallenge.Persistence.Repositories
             {
                 if (!order.completed)
                 {
-                    var new_order = new DTO.OrderDto();
-                    OrderMapper(order, out new_order);
-                    dto_orders_list.Add(new_order);
+                    var newOrder = new DTO.OrderDto();
+                    OrderMapper(order, out newOrder);
+                    dto_orders_list.Add(newOrder);
                 }
             }
             return dto_orders_list;
         }
-        public void UpdateOrder(string current_order_id)
+        public void UpdateOrder(string currentOrderId)
         {
             var db = new PapaBobEntities();
             var dbOrders = db.Orders.ToList();
-            var existing_order = dbOrders?.Find(p => p.order_id == new Guid(current_order_id));
-            existing_order.completed = true;
+            var existingOrder = dbOrders?.Find(p => p.order_id == new Guid(currentOrderId));
+            existingOrder.completed = true;
             db.SaveChanges();
         }
     }

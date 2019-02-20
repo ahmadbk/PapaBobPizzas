@@ -37,8 +37,6 @@ namespace PapaBobMegaChallenge.Domain
                 case DTO.Enums.Size.Large:
                     cost += latestPricing.LargeSizeCost;
                     break;
-                default:
-                    break;
             }
 
             switch (current_order.crust)
@@ -48,8 +46,6 @@ namespace PapaBobMegaChallenge.Domain
                     break;
                 case DTO.Enums.Crust.Thick:
                     cost += latestPricing.ThickCrustCost;
-                    break;
-                default:
                     break;
             }
 
@@ -80,6 +76,11 @@ namespace PapaBobMegaChallenge.Domain
         public void ChangeOrderStatus(string current_order_id)
         {
             _orderRepository.UpdateOrder(current_order_id);
+        }
+
+        public double GetTotalAccountBalance(string phoneNumber)
+        {
+            return _customerRepository.CustomerBalanceOwing(phoneNumber);
         }
     }
 }

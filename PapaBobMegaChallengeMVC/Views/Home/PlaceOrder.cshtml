@@ -1,8 +1,12 @@
 ﻿
 @{
-    ViewBag.Success = "Your Order was placed successfully!";
+    ViewBag.Success = "Your Order was captured successfully!";
 }
 
 <h2>@ViewBag.Success</h2>
-<h2>Your Total Cost is: @ViewBag.Cost</h2>
+<h3>Total Cost is: @ViewBag.Cost</h3>
+<h3>Previous Balance Owing: @ViewBag.previousBalance</h3>
+<h3>Total Balance Owing: @ViewBag.TotalAccountBalance</h3>
+
+@Html.ActionLink("Order Management", "OrderManagement")
 

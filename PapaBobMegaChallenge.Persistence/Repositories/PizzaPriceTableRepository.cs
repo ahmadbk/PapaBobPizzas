@@ -18,24 +18,24 @@ namespace PapaBobMegaChallenge.Persistence.Repositories
             return PriceMapper(latestPrice);
         }
 
-        public DTO.PizzaPriceTableDto PriceMapper(Persistence.PizzaPriceTable current_prices)
+        public DTO.PizzaPriceTableDto PriceMapper(Persistence.PizzaPriceTable currentPrices)
         {
-            var prices_current = new DTO.PizzaPriceTableDto
+            var pricesCurrent = new DTO.PizzaPriceTableDto
             {
-                Id = current_prices.Id,
-                Date = current_prices.Date,
-                SmallSizeCost = current_prices.SmallSizeCost,
-                MediumSizeCost = current_prices.MediumSizeCost,
-                LargeSizeCost = current_prices.LargeSizeCost,
-                ThickCrustCost = current_prices.ThickCrustCost,
-                ThinCrustCost = current_prices.ThinCrustCost,
-                SausageCost = current_prices.SausageCost,
-                GreenPeppersCost = current_prices.GreenPeppersCost,
-                OnionsCost = current_prices.OnionsCost,
-                PepperoniCost = current_prices.PepperoniCost
+                Id = currentPrices.Id,
+                Date = currentPrices.Date,
+                SmallSizeCost = currentPrices.SmallSizeCost,
+                MediumSizeCost = currentPrices.MediumSizeCost,
+                LargeSizeCost = currentPrices.LargeSizeCost,
+                ThickCrustCost = currentPrices.ThickCrustCost,
+                ThinCrustCost = currentPrices.ThinCrustCost,
+                SausageCost = currentPrices.SausageCost,
+                GreenPeppersCost = currentPrices.GreenPeppersCost,
+                OnionsCost = currentPrices.OnionsCost,
+                PepperoniCost = currentPrices.PepperoniCost
             };
 
-            return prices_current;
+            return pricesCurrent;
         }
 
     }
