@@ -5,6 +5,7 @@
 
 <h3><strong>@ViewBag.Title</strong></h3>
 
+
 @using (Html.BeginForm("PlaceOrder", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -27,13 +28,15 @@
 
     <div class="form-group">
         @Html.LabelFor(p => p.size)
-        @Html.EnumDropDownListFor(p => p.size, "Choose one...", new { @class = "form-control" })
+        @Html.EnumDropDownListFor(p => p.size, 
+            new { @class = "form-control",  @onchange = "myFunction()", @id = "SizeDropDownList" })
         @Html.ValidationMessageFor(p => p.size, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(p => p.crust)
-        @Html.EnumDropDownListFor(p => p.crust, "Choose one...", new { @class = "form-control" })
+        @Html.EnumDropDownListFor(p => p.crust, 
+            new { @class = "form-control", @onchange = "myFunction()", @id = "CrustDropDownList" })
         @Html.ValidationMessageFor(p => p.crust, "", new { @class = "text-danger" })
         <br />
     </div>
@@ -41,16 +44,20 @@
     <div class="form-group">
         <h5><strong>Toppings:<br /></strong></h5>
 
-        @Html.CheckBoxFor(p => p.green_peppers)
+        @Html.CheckBoxFor(p => p.green_peppers,
+            new { @onchange = "myFunction()", @id = "GreenPeppersCheckBox" })
         @Html.LabelFor(p => p.green_peppers)
         <br />
-        @Html.CheckBoxFor(p => p.onions)
+        @Html.CheckBoxFor(p => p.onions, 
+            new { @onchange = "myFunction()", @id = "OnionsCheckBox" })
         @Html.LabelFor(p => p.onions)
         <br />
-        @Html.CheckBoxFor(p => p.pepperoni)
+        @Html.CheckBoxFor(p => p.pepperoni, 
+            new { @onchange = "myFunction()", @id = "PepperoniCheckBox" })
         @Html.LabelFor(p => p.pepperoni)
         <br />
-        @Html.CheckBoxFor(p => p.sausage)
+        @Html.CheckBoxFor(p => p.sausage, 
+            new { @onchange = "myFunction()", @id = "SausagesCheckBox" })
         @Html.LabelFor(p => p.sausage)
     </div>
 
@@ -89,4 +96,34 @@
         <input type="submit" value="Place Order!" class="btn btn-default" />
     </div>
 
+    <h3 id="costOfOrder" class="form-control"><br /> <strong></strong></h3>
+
 }
+
+<script>
+
+    function myFunction() {
+
+        var updatedValuesForOrder = {
+            "size": $("#SizeDropDownList option:selected").val(),
+            "crust": $("#CrustDropDownList option:selected").val(),
+            "green_peppers": $("#GreenPeppersCheckBox").is(":checked"),
+            "onions": $("#OnionsCheckBox").is(":checked"),
+            "pepperoni": $("#PepperoniCheckBox").is(":checked"),
+            "sausage": $("#SausagesCheckBox").is(":checked")
+        }
+        
+        $.ajax({
+            url: "@Url.Action("UpdatePrice", "Home")",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(updatedValuesForOrder),
+            contentType: "application/json; charset=utf-8",
+            success: function(resp) {
+                $("#costOfOrder").html("The total cost for your order is:R" + resp);
+            }
+        });
+    }
+
+</script>
+    

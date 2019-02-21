@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace PapaBobMegaChallengeMVC.Controllers
 {
@@ -70,6 +73,27 @@ namespace PapaBobMegaChallengeMVC.Controllers
             return RedirectToAction("OrderManagement", "Home");
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult UpdatePrice(Order model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            //JObject json = JObject.Parse(model);
+            //var order = new JavaScriptSerializer().Deserialize<Order>(model);
+            var orderService = new OrderService(new CustomerRepository(), new PizzaPriceTableRepository(), new OrderRepository());
+            
+            var cost = orderService.CalculateAmountOwing(OrderMapperWithoutCustomer(model));
+            //const double cost = 12.0;
+            //model.cost = decimal.Parse(cost.ToString());
+            //JSONConvert --> JSONConvert.Serialize
+            //var f = Json(cost.ToString());
+            return Content(cost.ToString());
+        }
+
         private static Order OrderMapper(OrderDto orderDto)
         {
             var order = new Order
@@ -115,6 +139,24 @@ namespace PapaBobMegaChallengeMVC.Controllers
                     phone_number = order.Customer.phone_number,
                     zip_code = order.Customer.zip_code
                 }
+            };
+
+            return orderDto;
+        }
+
+        private static OrderDto OrderMapperWithoutCustomer(Order order)
+        {
+            var orderDto = new OrderDto
+            {
+                order_id = order.order_id,
+                green_peppers = order.green_peppers,
+                sausage = order.sausage,
+                onions = order.onions,
+                pepperoni = order.pepperoni,
+                cost = order.cost,
+                size = (PapaBobMegaChallenge.DTO.Enums.Size)order.size,
+                crust = (PapaBobMegaChallenge.DTO.Enums.Crust)order.crust,
+                payment_type = (PapaBobMegaChallenge.DTO.Enums.PaymentType)order.payment_type,
             };
 
             return orderDto;
